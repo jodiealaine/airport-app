@@ -43,9 +43,15 @@ describe Airport do
   	expect(airport.weather_state_options).to eq ['sunny', 'stormy']
   end
 
-  it 'can have a bomb scare'
+  it 'can have a bomb scare' do 
+    airport.bomb_scare!
+    expect(airport.bomb_scare?).to eq true
+  end
 
-  it 'can call off a bomb scare'
+  it 'can call off a bomb scare' do 
+    airport.call_off_bomb_scare!
+    expect(airport.bomb_scare?).to eq false
+  end
 
   context 'Given a bomb scare'
   it 'no planes can take off or land'

@@ -7,11 +7,24 @@ class Airport < Weather
   	@state_options = ['sunny', 'stormy']
     @max_capacity = max_capacity
     @planes = []
+    @bomb_scare = false
     collection_of_new_planes
   end
   
   def weather_state_options
     @state_options
+  end
+
+  def bomb_scare!
+    @bomb_scare = true 
+  end
+
+  def call_off_bomb_scare!
+    @bomb_scare = false
+  end
+  
+  def bomb_scare?
+    @bomb_scare
   end
 
   def max_capacity
