@@ -1,18 +1,12 @@
 require 'weather'
 
-class Airport < Weather
+class Airport 
 
-  def initialize(max_capacity)
-  	super()
-  	@state_options = ['sunny', 'stormy']
+  def initialize(max_capacity, collection_of_planes)
+  	@weather = Weather.new(['sunny', 'stormy'])
     @max_capacity = max_capacity
-    @planes = []
+    @planes = collection_of_planes
     @bomb_scare = false
-    collection_of_new_planes
-  end
-  
-  def weather_state_options
-    @state_options
   end
 
   def bomb_scare!
@@ -31,10 +25,6 @@ class Airport < Weather
     @max_capacity
   end
 
-  def collection_of_new_planes
-    (@max_capacity/2).times{ @planes << Plane.new}
-  end
-
   def has_planes?
   	!@planes.empty?
   end
@@ -44,15 +34,29 @@ class Airport < Weather
   end
 
   def current_weather
-  	set_weather!
-  end
-
-  def set_weather!
-    set(@state_options[rand(2)]) 
+  	@weather.state
   end
 
   def has_capacity?
     @planes.length < @max_capacity
+  end
+  
+  def release_plane?
+    (current_weather == 'sunny') && bomb_scare?
+  end
+
+  def accept_plane?
+  	(current_weather == 'sunny') && bomb_scare? && has_capacity?
+  end
+
+  def release_plane!
+  	raise 'Cannot release plane' if !release_plane?
+  	@planes.pop   
+  end
+
+  def accept_plane!(plane)
+  	raise 'Cannot accept plane' if !accept_plane?
+  	@planes << @plane 
   end
 
 end

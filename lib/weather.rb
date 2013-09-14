@@ -1,18 +1,18 @@
 class Weather
    
-   def initialize state=nil
-     @state = state
+   def initialize(airport_weather_states)
+     @states = airport_weather
    end
 
    def has_state?
-     !@state.nil?
+     @state.any?
    end
 
    def set state
      @state = state
    end
 
-   def state 
-     @state
+   def state
+     @states.sample
    end
 end

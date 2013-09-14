@@ -5,7 +5,7 @@ describe Weather do
   it 'has no state' do 
     expect(weather).not_to have_state
   end
-
+  
   it 'state can be set' do 
     weather.set 'stormy'
     expect(weather.state).to eq 'stormy'

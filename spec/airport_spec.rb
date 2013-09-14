@@ -53,34 +53,54 @@ describe Airport do
     expect(airport.bomb_scare?).to eq false
   end
 
-  context 'Given a bomb scare'
-  it 'no planes can take off or land'
 
-  context 'Given a bomb scare is called off'
-  it 'goes back to normal'
 
   context 'Given there are no bomb scares and the weather is sunny' 
-  it 'can accept a plane if the airport is not full' 
-
-  it 'cannot accept a plane if the airport is full'
-
-  it 'can release a plane if the airport'
   
-  context 'Given the airport is not full and the weather is sunny'
-  it 'can accept a plane if there is no bomb scare'
+	  it 'can accept a plane if the airport is not full' 
 
-  it 'cannot accept a plane if there is a bomb scare'
+	  it 'cannot accept a plane if the airport is full'
 
-  it 'can release a plane if the there is no bomb scare'
+	  it 'can release a plane if the airport'
+	  
+	context 'Given the airport is not full and the weather is sunny'
+	  it 'can accept a plane if there is no bomb scare'
 
-  it 'cannot release a plane if there is a bomb scare'
+	  it 'cannot accept a plane if there is a bomb scare'
+
+	  it 'can release a plane if the there is no bomb scare'
+
+	  it 'cannot release a plane if there is a bomb scare'
 
   context 'Given there are no bomb scares an the airport is not full'
-  it 'can accept a plane if the weather is sunny'
+	  it 'can accept a plane if the weather is sunny' do 
+      plane = double :plane
+      airport.accept_plane!(plane)
+      expect(airport.number_of_planes).to eq 3
+    end
+	  it 'cannot accept a plane if the weather is stormy'
 
-  it 'cannot accept a plane if the weather is stormy'
+	  it 'can release a plane if the weather is sunny' do
+	    airport.release_plane!
+	    expect(airport.number_of_planes).to eq 1
+	  end
 
-  it 'can release a plane if the weather is sunny'
+	  it 'cannot release a plane if the weather is stormy'
+	
+	context 'Given a bomb scare' do   
+    it 'cannot let plane take off' do 
+      expect{airport.release_plane!}.to raise_error 'Cannot release the plane'
+  end
 
-  it 'cannot release a plan if the weather is stormy'
+	  it 'cannot let plane land at airport' do 
+	    plane = double :plane
+	    airport.bomb_scare!
+	    expect{airport.accept_plane!(plane)}.to raise_error 'Cannot accept the plane'
+	  end
+  end
+  
+  context 'Given a bomb scare is called off' 
+	  it 'goes back to normal' 
+
+	  	
 end
